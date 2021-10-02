@@ -12,10 +12,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    password: {
+    workLocation: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
+    hobbies: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    }
   });
 
   Users.associate = (models) => {
