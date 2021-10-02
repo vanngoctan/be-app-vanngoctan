@@ -1,3 +1,16 @@
 .App {
   text-align: center;
 }
+
+.event-banner{
+  border: 2px solid powderblue;
+  width: 300px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.join-btn {
+  background-color: aqua;
+  margin: auto;
+  width: 50%;
+}
