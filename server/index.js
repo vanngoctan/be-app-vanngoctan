@@ -11,13 +11,15 @@ const db = require("./models");
  * Router
  *
  */
-
 //event
 const events = require('./routes/Events');
 app.use("/events", events);
 
 const register = require('./routes/RegisterEvent');
 app.use("/register", register);
+
+const viewUsers = require('./routes/ViewListUsers');
+app.use("/view", viewUsers);
 
 db.sequelize.sync().then(() => {
     app.listen(3001, () => {
