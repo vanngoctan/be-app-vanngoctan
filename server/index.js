@@ -16,6 +16,9 @@ const db = require("./models");
 const events = require('./routes/Events');
 app.use("/events", events);
 
+const register = require('./routes/RegisterEvent');
+app.use("/register", register);
+
 db.sequelize.sync().then(() => {
     app.listen(3001, () => {
         console.log("Server running on port 3001");
