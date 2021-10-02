@@ -12,7 +12,8 @@ export default function EventBanner(props) {
                 {props.description}
             </div>
             <br/>
-            <button className="join-btn" onClick={()=>{history.push(`/register/${props.eventId}`)}}>Register</button>
+            <button className="join-btn-2" onClick={() => { history.push(`/register/${props.eventId}`) }}>Register</button>
+            <button className="join-btn-2" onClick={() => { history.push(`/view/${props.eventId}`) }}>View Users</button>
         </div>
     )
 }

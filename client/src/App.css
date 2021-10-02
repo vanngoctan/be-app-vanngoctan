@@ -15,11 +15,18 @@ body {
 .event-banner{
   border: 2px solid powderblue;
   width: 300px;
-  margin: auto;
   margin-top: 20px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
+  display: block;
+}
+
+.event-banner h2 {
+  display: block;
+  text-align: center;
+}
+
+.event-banner div {
+  display: block;
+  text-align: center;
 }
 
 .join-btn {
@@ -31,6 +38,25 @@ body {
   color: white;
 }
 
+.join-btn-2 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80px;
+  height: 40px;
+  border: none;
+  background-color: lightskyblue;
+  border-radius: 5px;
+  color: white;
+  display: block;
+}
+
+.join-btn-2:hover {
+  cursor: pointer;
+  background-color: dodgerblue;
+}
+
 .join-btn:hover {
   cursor: pointer;
   background-color: dodgerblue;
@@ -40,13 +66,14 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   width: 100vw;
   height: 70vh;
-  display: flex;
+  display: block;
   justify-content: center;
   align-items: center;
 }
 
 .form-container {
   display: flex;
+  margin: auto;
   flex-direction: column;
   justify-content: center;
   width: 500px;
@@ -71,4 +98,9 @@ span {
   margin-bottom: 10px;
   font-style: italic;
   font-size: small;
+}
+
+h1 {
+  display: block;
+  text-align: center;
 }

@@ -7,13 +7,13 @@ import * as Yup from 'yup';
 
 export default function RegisterEvent() {
   const [Event, setEvent] = useState([]);
+  const [Error, setError] = useState([]);
 
   let { id } = useParams();
 
   useEffect(() => {
     axios.get(`http://localhost:3001/events/${id}`).then((response) => {
       setEvent(response.data);
-      console.log(response.data);
     });
   }, [id]);
   
@@ -55,13 +55,21 @@ export default function RegisterEvent() {
   const validationSchema = vs;
 
   const onSubmit = (data) => {
-    console.log(data);
+      axios.post(`http://localhost:3001/register/${id}`, data).then((response) => {
+        
+      }).catch((response) => {
+        setError(response.data)
+        console.log(response.data);
+      });
   }
 
   return (
     <div className="register-user-to-event">
+      <h1>Register for {Event.name}</h1>
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
         <Form className="form-container">
+          
+          {Error.error !== undefined && (<span>This Email has been registered for this event</span>)}
           <label>First name: </label>
           <Field
             className="input"
