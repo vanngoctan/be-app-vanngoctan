@@ -29,6 +29,7 @@ const getUsers = (page, req, res) => {
         'result': users,
         'count': data.count,
         'pages': pages,
+        'current': parseInt(page)
       });
     })
   });
