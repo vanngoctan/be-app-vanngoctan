@@ -66,3 +66,9 @@ body {
   font-size: 20px;
 }
 
+span {
+  color: red;
+  margin-bottom: 10px;
+  font-style: italic;
+  font-size: small;
+}
