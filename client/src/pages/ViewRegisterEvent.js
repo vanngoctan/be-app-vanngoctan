@@ -47,7 +47,7 @@ export default function ViewRegisterEvent() {
       <ul>
         {
           ListOfUsers.map((value, key) => {
-            return (<li key={key}>{value.firstName} {value.lastName} | {value.email}</li>);
+            return (<li key={key}>Name: {value.firstName} {value.lastName} | {value.email} | { Event.needInfo === "worklocation" ? "Work Location: " + value.workLocation : "Hobbies: " + value.hobbies}</li>);
           })
         }
       </ul>
