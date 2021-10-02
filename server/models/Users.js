@@ -1,10 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define("Users", {
-    first_name: {
+    firstName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    last_name: {
+    lastName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
+
+  Users.associate = (models) => {
+    Users.belongsToMany(models.Events, {
+      through: "Users_Events",
+    });
+  };
 
   return Users;
 };
