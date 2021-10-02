@@ -44,7 +44,13 @@ export default function ViewRegisterEvent() {
   return (
     <div>
       <h1>List of Users registered for {Event.name}</h1>
-
+      <ul>
+        {
+          ListOfUsers.map((value, key) => {
+            return (<li key={key}>{value.firstName} {value.lastName} | {value.email}</li>);
+          })
+        }
+      </ul>
       <Pagination
         initialPage={1}
         show={5}
