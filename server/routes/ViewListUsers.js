@@ -15,7 +15,7 @@ const getUsers = (page, req, res) => {
     let pages = Math.ceil(data.count / limit);
     offset = limit * (page - 1);
     Users.findAll({
-      attributes: ['id', 'firstName', 'lastName', 'workLocation', 'hobbies'],
+      attributes: ['id', 'firstName', 'lastName', 'email' ,'workLocation', 'hobbies'],
       limit: limit,
       offset: offset,
       include: {
