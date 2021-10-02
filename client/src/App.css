@@ -1,5 +1,15 @@
 .App {
-  text-align: center;
+  width: 100vw;
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  flex-direction: column;
+}
+
+body {
+  margin: 0;
+  padding: 0;
 }
 
 .event-banner{
@@ -7,10 +17,52 @@
   width: 300px;
   margin: auto;
   margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .join-btn {
-  background-color: aqua;
-  margin: auto;
-  width: 50%;
+  margin-top: 15px;
+  height: 40px;
+  border: none;
+  background-color: lightskyblue;
+  border-radius: 5px;
+  color: white;
 }
+
+.join-btn:hover {
+  cursor: pointer;
+  background-color: dodgerblue;
+}
+
+.register-user-to-event {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100vw;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 500px;
+  height: auto;
+  padding: 20px;
+  border: 5px solid dodgerblue;
+  border-radius: 5px;
+}
+
+.input {
+  height: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding-left: 10px;
+  font-size: 20px;
+}
+
