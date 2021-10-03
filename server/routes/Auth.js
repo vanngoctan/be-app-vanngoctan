@@ -54,7 +54,7 @@ router.post(
         const token = jwt.sign(
           { email: admin.email },
           process.env.ACCESS_TOKEN_SECRET,
-          { expiresIn: "5s" }
+          { expiresIn: "30s" }
         );
         const refreshToken = jwt.sign(
           { email: admin.email },
@@ -120,7 +120,7 @@ router.post("/refreshToken", async (req, res) => {
     const accessToken = jwt.sign(
       { email: admin.email },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "5s" }
+      { expiresIn: "30s" }
     );
     const refreshToken = jwt.sign(
       { email: admin.email },
