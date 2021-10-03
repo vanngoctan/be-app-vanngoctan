@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Admins } = require("../models");
+const { Admins, Token } = require("../models");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 
@@ -53,6 +53,12 @@ router.post(
 
         const token = jwt.sign({ email: admin.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' });
         const refreshToken = jwt.sign({ email: admin.email }, process.env.FRESH_TOKEN_SECRET);
+
+        Token.create({
+          token: refreshToken,
+          userId: admin.id
+        })
+
         res.status(200).json({ "result": "LOGGED IN", "userId": admin.id, "token": token, "refreshToken": refreshToken, "role": admin.role});
       });
     }
