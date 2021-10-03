@@ -31,6 +31,16 @@ router.post(
   }
 );
 
+router.get("/get/:userId", validateToken, async (req, res) => {
+  const user = await Users.findOne({ where: { id: req.params.userId } });
+
+  if (!user) {
+    return res.status(400).json("User not found!");
+  } else {
+    return res.status(200).json(user);
+  }
+});
+
 router.post("/statistic ", validateToken, async (req, res) => {
   let email = req.body.email;
 

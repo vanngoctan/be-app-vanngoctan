@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { Events } = require("../models");
+const { Events, Users_Events } = require("../models");
+const { validateToken } = require("../middlewares/AuthMiddleware");
+const { response } = require("express");
 
-router.post("/add", async (req, res) => {
+router.post("/add", validateToken, async (req, res) => {
   const event = req.body;
   await Events.create({
     name: event.name,
@@ -22,6 +24,19 @@ router.get("/:id", async (req, res) => {
 router.get("/", async (req, res) => {
   let events = await Events.findAll();
   res.json(events);
+});
+
+router.put("/unsubscribe/:eventId", async (req, res) => {
+  const userId = req.body.userId;
+
+  if (!userId) return res.status(400).json("UserId is empty!");
+
+  await Users_Events.destroy({
+    where: {
+      userId: req.body.userId,
+      eventId: req.params.eventId
+    },
+  });
 });
 
 module.exports = router;

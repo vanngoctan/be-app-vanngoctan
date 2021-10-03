@@ -31,6 +31,7 @@ const getUsers = (page, req, res) => {
           id: req.params.id,
         },
       },
+      order: [["id"]]
     }).then((users) => {
       res.status(200).json({
         result: users,
