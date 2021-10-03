@@ -18,7 +18,7 @@ router.post(
     const user = await Users.findOne({ where: { email: req.body.email } });
     if (user == null) {
       const userCreated = await Users.create(req.body);
-      const association = await Users_Events.create({
+      await Users_Events.create({
         UserId: userCreated.id,
         EventId: req.params.id,
       });
