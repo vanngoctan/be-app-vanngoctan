@@ -53,7 +53,7 @@ router.post(
 
         const token = jwt.sign({ email: admin.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' });
         const refreshToken = jwt.sign({ email: admin.email }, process.env.FRESH_TOKEN_SECRET);
-        res.status(200).json({"result": "LOGGED IN", "userId": admin.id, "token": token, "refreshToken": refreshToken});
+        res.status(200).json({ "result": "LOGGED IN", "userId": admin.id, "token": token, "refreshToken": refreshToken, "role": admin.role});
       });
     }
   }
