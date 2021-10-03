@@ -2,9 +2,9 @@ import React from "react";
 import Pagination from "pagination-component";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-export default function ViewRegisterEvent() {
+export default function ViewRegisterEvent(props) {
   const [Event, setEvent] = useState([]);
   const [ListOfUsers, setListOfUsers] = useState([]);
   const [Page, setPage] = useState({ currentPage: 1, count: 0, maxPage: 2 });
@@ -15,7 +15,7 @@ export default function ViewRegisterEvent() {
     axios
       .get(`http://localhost:3001/view/${eventId}/page/${page}`)
       .then((response) => {
-        console.log(response.data.pages)
+        console.log(response.data.pages);
         setListOfUsers(response.data.result);
         setPage({
           currentPage: response.data.current,
@@ -55,6 +55,7 @@ export default function ViewRegisterEvent() {
             <th>
               {Event.needInfo === "worklocation" ? "Work Location" : "Hobbies"}
             </th>
+            {props.auth && <th>Action</th>}
           </tr>
           {ListOfUsers.map((value, key) => {
             return (
@@ -69,6 +70,12 @@ export default function ViewRegisterEvent() {
                     ? value.workLocation
                     : value.hobbies}
                 </td>
+
+                {props.auth && (
+                  <td>
+                    <Link to={"/edit/" + value.id}>Edit</Link>
+                  </td>
+                )}
               </tr>
             );
           })}

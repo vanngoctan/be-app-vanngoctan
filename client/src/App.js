@@ -10,6 +10,8 @@ import axios from "axios";
 import Logout from "./pages/Logout";
 import authService from "./helpers/AuthService";
 import UnsubcribeEvent from "./pages/UnsubcribeEvent";
+import EditUser from "./pages/EditUser";
+import UnsubscribeAll from "./pages/UnsubscribeAll";
 
 function App() {
   const [authState, setAuthState] = useState(false);
@@ -58,13 +60,27 @@ function App() {
               </Link>
             </div>
           )}
+
+          <Link to="/unsubscribeall" className="Home">
+            Unsubcribe All Events
+          </Link>
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/register/:id" exact component={RegisterEvent} />
-            <Route path="/view/:eventId" exact component={ViewRegisterEvent} />
-            <Route path="/unsubscribe/:eventId" exact component={UnsubcribeEvent} />
+            <Route
+              path="/view/:eventId"
+              exact
+              component={() => <ViewRegisterEvent auth={authState} />}
+            />
+            <Route
+              path="/unsubscribe/:eventId"
+              exact
+              component={UnsubcribeEvent}
+            />
+            <Route path="/unsubscribeall/" exact component={UnsubscribeAll} />
             {!authState && <Route path="/login" exact component={Login} />}
             {authState && <Route path="/logout" exact component={Logout} />}
+            {authState && <Route path="/edit/:id" exact component={EditUser} />}
           </Switch>
         </Router>
       </AuthContext.Provider>
