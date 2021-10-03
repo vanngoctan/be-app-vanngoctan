@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Events, Users_Events } = require("../models");
+const { Events, Users_Events, Users } = require("../models");
 const { validateToken } = require("../middlewares/AuthMiddleware");
 const { response } = require("express");
 
@@ -37,6 +37,28 @@ router.put("/unsubscribe/:eventId", async (req, res) => {
       eventId: req.params.eventId
     },
   });
+
+  res.status(200).json("SUCESS");
+});
+
+router.put("/unsubscribeall/", async (req, res) => {
+  const userId = req.body.userId;
+
+  if (!userId) return res.status(400).json("UserId is empty!");
+
+  await Users_Events.destroy({
+    where: {
+      userId: req.body.userId,
+    },
+  });
+
+  await Users.destroy({
+    where: {
+      id: req.body.userId,
+    }
+  })
+
+  res.status(200).json("SUCESS");
 });
 
 module.exports = router;
