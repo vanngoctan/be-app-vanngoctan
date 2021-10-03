@@ -29,6 +29,9 @@ app.use("/view", viewUsers);
 const auth = require("./routes/Auth");
 app.use("/auth", auth);
 
+const user = require("./routes/User");
+app.use("/user", user);
+
 db.sequelize.sync().then(() => {
     app.listen(PORT, () => {
         console.log("Server running on port " + PORT);
