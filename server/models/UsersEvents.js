@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     custom: {
       type: DataTypes.STRING,
       allowNull: true,
-    }
+    },
   });
 
   return UsersEvents;

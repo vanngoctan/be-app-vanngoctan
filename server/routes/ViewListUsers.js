@@ -15,7 +15,14 @@ const getUsers = (page, req, res) => {
     let pages = Math.ceil(data.count / limit);
     offset = limit * (page - 1);
     Users.findAll({
-      attributes: ['id', 'firstName', 'lastName', 'email' ,'workLocation', 'hobbies'],
+      attributes: [
+        "id",
+        "firstName",
+        "lastName",
+        "email",
+        "workLocation",
+        "hobbies",
+      ],
       limit: limit,
       offset: offset,
       include: {
@@ -23,17 +30,17 @@ const getUsers = (page, req, res) => {
         where: {
           id: req.params.id,
         },
-      }
+      },
     }).then((users) => {
       res.status(200).json({
-        'result': users,
-        'count': data.count,
-        'pages': pages,
-        'current': parseInt(page)
+        result: users,
+        count: data.count,
+        pages: pages,
+        current: parseInt(page),
       });
-    })
+    });
   });
-}
+};
 
 router.get("/:id", async (req, res) => {
   await getUsers(1, req, res);

@@ -21,6 +21,8 @@ app.use("/register", register);
 const viewUsers = require('./routes/ViewListUsers');
 app.use("/view", viewUsers);
 
+const auth = require("")
+
 db.sequelize.sync().then(() => {
     app.listen(3001, () => {
         console.log("Server running on port 3001");

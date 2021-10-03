@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     hobbies: {
       type: DataTypes.STRING,
       allowNull: true,
-    }
+    },
   });
 
   Users.associate = (models) => {
