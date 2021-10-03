@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 export default function ViewRegisterEvent() {
   const [Event, setEvent] = useState([]);
   const [ListOfUsers, setListOfUsers] = useState([]);
-  const [Page, setPage] = useState({ currentPage: 1, count: 0, maxPage: 1 });
+  const [Page, setPage] = useState({ currentPage: 1, count: 0, maxPage: 2 });
 
   let { eventId } = useParams();
 
@@ -15,6 +15,7 @@ export default function ViewRegisterEvent() {
     axios
       .get(`http://localhost:3001/view/${eventId}/page/${page}`)
       .then((response) => {
+        console.log(response.data.pages)
         setListOfUsers(response.data.result);
         setPage({
           currentPage: response.data.current,
@@ -33,10 +34,11 @@ export default function ViewRegisterEvent() {
       .get(`http://localhost:3001/view/${eventId}/page/${Page.currentPage}`)
       .then((response) => {
         setListOfUsers(response.data.result);
+        let maxPage = response.data.pages < 1 ? 1 : response.data.pages;
         setPage({
           currentPage: response.data.current,
           count: response.data.count,
-          maxPage: response.data.pages,
+          maxPage: maxPage,
         });
       });
   }, [eventId, Page.currentPage]);
@@ -45,28 +47,32 @@ export default function ViewRegisterEvent() {
     <div>
       <h1>List of Users registered for {Event.name}</h1>
       <table className="table">
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>
-            {Event.needInfo === "worklocation" ? "Work Location" : "Hobbies"}
-          </th>
-        </tr>
-        {ListOfUsers.map((value, key) => {
-          return (
-            <tr key={key}>
-              <td>
-                {value.firstName} {value.lastName}
-              </td>
-              <td>{value.email}</td>
-              <td>
-                {Event.needInfo === "worklocation"
-                  ? value.workLocation
-                  : value.hobbies}
-              </td>
-            </tr>
-          );
-        })}
+        <tbody>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>
+              {Event.needInfo === "worklocation" ? "Work Location" : "Hobbies"}
+            </th>
+          </tr>
+          {ListOfUsers.map((value, key) => {
+            return (
+              <tr key={key}>
+                <td>{value.id}</td>
+                <td>
+                  {value.firstName} {value.lastName}
+                </td>
+                <td>{value.email}</td>
+                <td>
+                  {Event.needInfo === "worklocation"
+                    ? value.workLocation
+                    : value.hobbies}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
 
       <Pagination

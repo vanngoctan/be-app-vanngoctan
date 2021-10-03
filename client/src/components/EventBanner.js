@@ -25,6 +25,15 @@ export default function EventBanner(props) {
       >
         View Users
       </button>
+
+      <button
+        className="join-btn-2"
+        onClick={() => {
+          history.push(`/unsubscribe/${props.eventId}`);
+        }}
+      >
+        Unsubcribe
+      </button>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Logout from "./pages/Logout";
 import authService from "./helpers/AuthService";
+import UnsubcribeEvent from "./pages/UnsubcribeEvent";
 
 function App() {
   const [authState, setAuthState] = useState(false);
@@ -61,6 +62,7 @@ function App() {
             <Route path="/" exact component={Home} />
             <Route path="/register/:id" exact component={RegisterEvent} />
             <Route path="/view/:eventId" exact component={ViewRegisterEvent} />
+            <Route path="/unsubscribe/:eventId" exact component={UnsubcribeEvent} />
             {!authState && <Route path="/login" exact component={Login} />}
             {authState && <Route path="/logout" exact component={Logout} />}
           </Switch>

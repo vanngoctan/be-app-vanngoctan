@@ -3,13 +3,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 
 export default function RegisterEvent() {
   const [Event, setEvent] = useState([]);
-  const [Error, setError] = useState([]);
 
   let { id } = useParams();
+
+  let history = useHistory();
 
   useEffect(() => {
     axios.get(`http://localhost:3001/events/${id}`).then((response) => {
@@ -17,16 +19,8 @@ export default function RegisterEvent() {
     });
   }, [id]);
 
-  let iv;
   let vs;
   if (Event.needInfo === "worklocation") {
-    iv = {
-      firstName: "",
-      lastName: "",
-      email: "",
-      workLocation: "",
-    };
-
     vs = Yup.object().shape({
       firstName: Yup.string().required("You must input the first name!"),
       lastName: Yup.string().required("You must input the last name!"),
@@ -36,13 +30,6 @@ export default function RegisterEvent() {
       workLocation: Yup.string().required("You must input the work location!"),
     });
   } else {
-    iv = {
-      firstName: "",
-      lastName: "",
-      email: "",
-      hobbies: "",
-    };
-
     vs = Yup.object().shape({
       firstName: Yup.string().required("You must input the first name!"),
       lastName: Yup.string().required("You must input the last name!"),
@@ -53,16 +40,23 @@ export default function RegisterEvent() {
     });
   }
 
-  const initialValues = iv;
+  const initialValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    workLocation: "",
+    hobbies: ""
+  };
   const validationSchema = vs;
 
   const onSubmit = (data) => {
     axios
       .post(`http://localhost:3001/register/${id}`, data)
-      .then((response) => {})
+      .then((response) => {
+        history.push("/view/" + id);
+      })
       .catch((response) => {
-        setError(response.data);
-        console.log(response.data);
+
       });
   };
 
@@ -75,9 +69,6 @@ export default function RegisterEvent() {
         onSubmit={onSubmit}
       >
         <Form className="form-container">
-          {Error.error !== undefined && (
-            <span>This Email has been registered for this event</span>
-          )}
           <label>First name: </label>
           <Field
             className="input"
