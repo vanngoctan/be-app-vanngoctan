@@ -44,18 +44,31 @@ export default function ViewRegisterEvent() {
   return (
     <div>
       <h1>List of Users registered for {Event.name}</h1>
-      <ul>
+      <table className="table">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>
+            {Event.needInfo === "worklocation" ? "Work Location" : "Hobbies"}
+          </th>
+        </tr>
         {ListOfUsers.map((value, key) => {
           return (
-            <li key={key}>
-              Name: {value.firstName} {value.lastName} | {value.email} |{" "}
-              {Event.needInfo === "worklocation"
-                ? "Work Location: " + value.workLocation
-                : "Hobbies: " + value.hobbies}
-            </li>
+            <tr key={key}>
+              <td>
+                {value.firstName} {value.lastName}
+              </td>
+              <td>{value.email}</td>
+              <td>
+                {Event.needInfo === "worklocation"
+                  ? value.workLocation
+                  : value.hobbies}
+              </td>
+            </tr>
           );
         })}
-      </ul>
+      </table>
+
       <Pagination
         initialPage={1}
         show={5}
