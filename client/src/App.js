@@ -12,6 +12,7 @@ import authService from "./helpers/AuthService";
 import UnsubcribeEvent from "./pages/UnsubcribeEvent";
 import EditUser from "./pages/EditUser";
 import UnsubscribeAll from "./pages/UnsubscribeAll";
+import Statistic from "./pages/Statistic";
 
 function App() {
   const [authState, setAuthState] = useState(false);
@@ -39,31 +40,38 @@ function App() {
     <div className="App">
       <AuthContext.Provider value={{ authState, setAuthState }}>
         <Router>
-          <Link to="/" className="Home">
-            Home
-          </Link>
-          {!authState && (
-            <Link to="/login" className="Home">
-              Login
+          <div>
+            .
+            <Link to="/" className="Home">
+              Home
             </Link>
-          )}
-
-          {authState && (
-            <div>
-              Welcome, {sessionStorage.getItem("name")}
-              <Link
-                style={{ marginLeft: "15px" }}
-                to="/logout"
-                className="Home"
-              >
-                Logout
+            {!authState && (
+              <Link to="/login" className="Home">
+                Login
               </Link>
-            </div>
-          )}
+            )}
+            {authState && (
+              <div style={{ display: "inline" }}>
+                Welcome, {sessionStorage.getItem("name")}
+                <Link
+                  style={{ marginLeft: "15px" }}
+                  to="/logout"
+                  className="Home"
+                >
+                  Logout
+                </Link>
+              </div>
+            )}
+            {authState && (
+              <Link to="/statistic" className="Home">
+                Statistic
+              </Link>
+            )}
+            <Link to="/unsubscribeall" className="Home">
+              Unsubcribe All Events
+            </Link>
+          </div>
 
-          <Link to="/unsubscribeall" className="Home">
-            Unsubcribe All Events
-          </Link>
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/register/:id" exact component={RegisterEvent} />
@@ -81,6 +89,9 @@ function App() {
             {!authState && <Route path="/login" exact component={Login} />}
             {authState && <Route path="/logout" exact component={Logout} />}
             {authState && <Route path="/edit/:id" exact component={EditUser} />}
+            {authState && (
+              <Route path="/statistic" exact component={Statistic} />
+            )}
           </Switch>
         </Router>
       </AuthContext.Provider>

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Events, Users, Users_Events } = require("../models");
+const { Events, Users } = require("../models");
 const { body, validationResult } = require("express-validator");
 const { validateToken } = require("../middlewares/AuthMiddleware");
 
@@ -33,13 +33,7 @@ router.post(
 
 router.get("/get/:userId", async (req, res) => {
   const user = await Users.findOne({
-    attributes: [
-      "firstName",
-      "lastName",
-      "email",
-      "workLocation",
-      "hobbies",
-    ],
+    attributes: ["firstName", "lastName", "email", "workLocation", "hobbies"],
     where: { id: req.params.userId },
   });
 
@@ -50,18 +44,31 @@ router.get("/get/:userId", async (req, res) => {
   }
 });
 
-router.post("/statistic ", validateToken, async (req, res) => {
+router.post("/statistic", validateToken, async (req, res) => {
   let email = req.body.email;
 
   if (!email) return res.status(400).json("Empty Email!");
 
-  const user = await Users.findOne({ where: { email: req.body.email } });
+  const user = await Users.findOne({
+    attributes: [
+      "id",
+      "firstName",
+      "lastName",
+      "email",
+      "workLocation",
+      "hobbies",
+    ],
+    where: { email: req.body.email },
+  });
   if (!user) return res.status(400).json("User not found");
 
-  const events = await Events.findOne({
-    include: Users,
-    where: {
-      id: user.id,
+  const events = await Events.findAll({
+    attributes: ["id", "name"],
+    include: {
+      model: Users,
+      where: {
+        id: user.id,
+      },
     },
   });
 
