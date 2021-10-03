@@ -1,9 +1,14 @@
 const express = require('express');
 const app = express();
 const cors = require("cors");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 app.use(express.json());
-app.use(cors())
+app.use(cors());
+
+const PORT = process.env.PORT || 3001;
 
 const db = require("./models");
 
@@ -21,10 +26,11 @@ app.use("/register", register);
 const viewUsers = require('./routes/ViewListUsers');
 app.use("/view", viewUsers);
 
-const auth = require("")
+const auth = require("./routes/Auth");
+app.use("/auth", auth);
 
 db.sequelize.sync().then(() => {
-    app.listen(3001, () => {
-        console.log("Server running on port 3001");
+    app.listen(PORT, () => {
+        console.log("Server running on port " + PORT);
     }); 
 });
