@@ -17,13 +17,13 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const user = await Users.findOne({ where: { email: req.body.email } });
+    const user = await Users.findOne({ where: { id: req.body.userId } });
     if (user == null) {
       return res.status(400).json("User not found");
     } else {
       await Users.update(req.body, {
         where: {
-          email: req.body.email,
+          id: req.body.userId,
         },
       });
       return res.status(200).json("Edit Success!");
@@ -31,8 +31,17 @@ router.post(
   }
 );
 
-router.get("/get/:userId", validateToken, async (req, res) => {
-  const user = await Users.findOne({ where: { id: req.params.userId } });
+router.get("/get/:userId", async (req, res) => {
+  const user = await Users.findOne({
+    attributes: [
+      "firstName",
+      "lastName",
+      "email",
+      "workLocation",
+      "hobbies",
+    ],
+    where: { id: req.params.userId },
+  });
 
   if (!user) {
     return res.status(400).json("User not found!");
@@ -52,11 +61,11 @@ router.post("/statistic ", validateToken, async (req, res) => {
   const events = await Events.findOne({
     include: Users,
     where: {
-      id: user.id
-    }
+      id: user.id,
+    },
   });
 
-  return res.status(200).json({ "user": user, "events": events });
+  return res.status(200).json({ user: user, events: events });
 });
 
 module.exports = router;
