@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     needInfo: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+    },
   });
 
   Events.associate = (models) => {

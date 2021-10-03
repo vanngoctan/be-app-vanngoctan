@@ -46,25 +46,97 @@ router.post(
     });
 
     if (admin == null) {
-      return res.status(401).json("User not found!");
+      return res.status(400).json("User not found!");
     } else {
       bcrypt.compare(req.body.password, admin.password).then((match) => {
-        if (!match) return res.status(401).json("Wrong password!");
+        if (!match) return res.status(400).json("Wrong password!");
 
-        const token = jwt.sign({ email: admin.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' });
-        const refreshToken = jwt.sign({ email: admin.email }, process.env.FRESH_TOKEN_SECRET);
+        const token = jwt.sign(
+          { email: admin.email },
+          process.env.ACCESS_TOKEN_SECRET,
+          { expiresIn: "5s" }
+        );
+        const refreshToken = jwt.sign(
+          { email: admin.email },
+          process.env.FRESH_TOKEN_SECRET
+        );
 
         Token.create({
           token: refreshToken,
-          userId: admin.id
-        })
+          userId: admin.id,
+        });
 
-        res.status(200).json({ "result": "LOGGED IN", "userId": admin.id, "token": token, "refreshToken": refreshToken, "role": admin.role});
+        res.status(200).json({
+          result: "LOGGED IN",
+          userId: admin.id,
+          name: admin.firstName,
+          token: token,
+          refreshToken: refreshToken,
+          role: admin.role,
+        });
       });
     }
   }
 );
 
-router.put("/logout");
+router.post("/auth", validateToken, async (req, res) => {
+  return res.status(200).json("SUCCESS");
+});
+
+router.put("/logout", validateToken, async (req, res) => {
+  await Token.destroy({
+    truncate: true,
+    where: {
+      userId: req.body.userId,
+    },
+  });
+  res.status(200).json("LOGGED OUT");
+});
+
+router.post("/refreshToken", async (req, res) => {
+  const refreshToken = req.body.refreshToken;
+  if (!refreshToken) return res.status(401);
+
+  const isExist = await Token.findOne({
+    where: {
+      token: refreshToken,
+      userId: req.body.userId,
+    },
+  });
+
+  if (!isExist) return res.status(403).json("Forbidden");
+
+  const validToken = jwt.verify(refreshToken, process.env.FRESH_TOKEN_SECRET);
+
+  if (validToken) {
+    const admin = await Admins.findOne({
+      where: {
+        id: req.body.userId,
+      },
+    });
+
+    console.log(admin.email);
+
+    const accessToken = jwt.sign(
+      { email: admin.email },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: "5s" }
+    );
+    const refreshToken = jwt.sign(
+      { email: admin.email },
+      process.env.FRESH_TOKEN_SECRET
+    );
+
+    await Token.create({
+      token: refreshToken,
+      userId: admin.id,
+    });
+
+    res.status(200).json({
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    });
+  }
+});
 
 module.exports = router;
