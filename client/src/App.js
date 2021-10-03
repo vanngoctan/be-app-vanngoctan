@@ -15,6 +15,7 @@ import UnsubscribeAll from "./pages/UnsubscribeAll";
 import Statistic from "./pages/Statistic";
 
 function App() {
+
   const [authState, setAuthState] = useState(false);
 
   new authService().init();
@@ -22,7 +23,7 @@ function App() {
   useEffect(() => {
     if (sessionStorage.getItem("accessToken")) {
       axios
-        .post(`http://localhost:3001/auth/auth`, null, {
+        .post(`${process.env.REACT_APP_API_PATH}/auth/auth`, null, {
           headers: {
             Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
           },

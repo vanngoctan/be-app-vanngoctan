@@ -27,7 +27,7 @@ export default function Login() {
 
   const onSubmit = (data) => {
     axios
-      .post(`http://localhost:3001/auth/login`, data)
+      .post(`${process.env.REACT_APP_API_PATH}/auth/login`, data)
       .then((response) => {
         sessionStorage.setItem("accessToken", response.data.token);
         sessionStorage.setItem("refreshToken", response.data.refreshToken);

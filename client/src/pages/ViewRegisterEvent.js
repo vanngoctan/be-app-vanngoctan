@@ -13,7 +13,7 @@ export default function ViewRegisterEvent(props) {
 
   const loadUser = (page) => {
     axios
-      .get(`http://localhost:3001/view/${eventId}/page/${page}`)
+      .get(`${process.env.REACT_APP_API_PATH}/view/${eventId}/page/${page}`)
       .then((response) => {
         console.log(response.data.pages);
         setListOfUsers(response.data.result);
@@ -26,12 +26,12 @@ export default function ViewRegisterEvent(props) {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/events/${eventId}`).then((response) => {
+    axios.get(`${process.env.REACT_APP_API_PATH}/events/${eventId}`).then((response) => {
       setEvent(response.data);
     });
 
     axios
-      .get(`http://localhost:3001/view/${eventId}/page/${Page.currentPage}`)
+      .get(`${process.env.REACT_APP_API_PATH}/view/${eventId}/page/${Page.currentPage}`)
       .then((response) => {
         setListOfUsers(response.data.result);
         let maxPage = response.data.pages < 1 ? 1 : response.data.pages;

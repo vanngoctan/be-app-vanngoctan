@@ -14,7 +14,7 @@ export default function EditUser() {
   let history = useHistory();
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/user/get/${id}`, null, {
+    axios.get(`${process.env.REACT_APP_API_PATH}/user/get/${id}`, null, {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
       }
@@ -46,7 +46,7 @@ export default function EditUser() {
   const onSubmit = (data) => {
     console.log(data);
     axios
-      .post(`http://localhost:3001/user/edit`, data, {
+      .post(`${process.env.REACT_APP_API_PATH}/user/edit`, data, {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
         }

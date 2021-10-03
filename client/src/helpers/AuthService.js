@@ -30,7 +30,7 @@ export default class authService {
         };
 
         return refreshInstance
-          .post(`http://localhost:3001/auth/refreshToken`, data)
+          .post(`${process.env.REACT_APP_API_PATH}/auth/refreshToken`, data)
           .then((response) => {
             sessionStorage.setItem("accessToken", response.data.accessToken);
             sessionStorage.setItem("refreshToken", response.data.refreshToken);

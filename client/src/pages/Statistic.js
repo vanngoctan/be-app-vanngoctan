@@ -20,7 +20,7 @@ export default function Statistic() {
 
   const onSubmit = (data) => {
     axios
-      .post(`http://localhost:3001/user/statistic`, data, {
+      .post(`${process.env.REACT_APP_API_PATH}/user/statistic`, data, {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
         },

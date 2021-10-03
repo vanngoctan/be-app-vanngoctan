@@ -13,7 +13,7 @@ export default function UnsubcribeEvent() {
   let { eventId } = useParams();
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/events/${eventId}`).then((response) => {
+    axios.get(`${process.env.REACT_APP_API_PATH}/events/${eventId}`).then((response) => {
       setEvent(response.data);
     });
   }, [eventId]);
@@ -30,7 +30,7 @@ export default function UnsubcribeEvent() {
 
   const onSubmit = (data) => {
     axios
-      .put(`http://localhost:3001/events/unsubscribe/${eventId}`, data)
+      .put(`${process.env.REACT_APP_API_PATH}/events/unsubscribe/${eventId}`, data)
       .then((response) => {
         history.push("/");
       })
