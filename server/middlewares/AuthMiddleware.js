@@ -17,7 +17,7 @@ const validateToken = (req, res, next) => {
       return next();
     }
   } catch (err) {
-    return res.status(401).json({ error: "Forbidden!" });
+    return res.status(401).json({ error: "Token is invalid!" });
   }
 };
 
