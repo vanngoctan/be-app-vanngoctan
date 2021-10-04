@@ -19,7 +19,7 @@ export default function UnsubscribeAll() {
 
   const onSubmit = (data) => {
     axios
-      .put(`${process.env.REACT_APP_API_PATH}/events/unsubscribeall/`, data)
+      .put(`http://api.3rebooks.com/events/unsubscribeall/`, data)
       .then((response) => {
         history.push("/");
       })

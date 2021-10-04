@@ -14,7 +14,7 @@ export default function EditUser() {
   let history = useHistory();
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_PATH}/user/get/${id}`, null, {
+    axios.get(`http://api.3rebooks.com/user/get/${id}`, null, {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
       }
@@ -46,7 +46,7 @@ export default function EditUser() {
   const onSubmit = (data) => {
     console.log(data);
     axios
-      .post(`${process.env.REACT_APP_API_PATH}/user/edit`, data, {
+      .post(`http://api.3rebooks.com/user/edit`, data, {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
         }
