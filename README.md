@@ -78,7 +78,7 @@ npm start
 
 # APIs
 ## Public APIs
-### Saving users’ information to database.
+### 1. Saving users’ information to database.
 * **URL**
 
   api_host/register/:id
@@ -109,7 +109,7 @@ npm start
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{ SUCCESS }`
+    **Content:** `{ "SUCCESS" }`
  
 * **Error Response:**
 
@@ -129,7 +129,7 @@ curl --request POST \
 }'
 ```
 
-### Getting the list of registered users from each event.
+### 2. Getting the list of registered users from each event.
 * **URL**
 
   api_post/view/:eventId
@@ -163,7 +163,7 @@ curl --request GET \
   --url http://localhost:3001/view/1
 ```
 
-### Getting the list of registered users from each event.
+### 3. Getting the list of registered users from each event per page.
 * **URL**
 
   api_post/view/:eventId/page/:page
@@ -197,3 +197,84 @@ curl --request GET \
 curl --request GET \
   --url http://localhost:3001/view/1/page/1
 ```
+
+### 4. Unsubscribing users per event.
+* **URL**
+
+  api_host/events/unsubscribe/:eventId
+
+* **Method:**
+
+  `PUT`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `eventId=[integer]` //Event Id
+
+* **Data Params**
+
+  **Required:**
+  `UserId=[integer]`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ "SUCCESS" }`
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ "UserId is empty!" }`
+    
+* **Sample:**
+```
+curl --request PUT \
+  --url http://localhost:3001/events/unsubscribe/1 \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"userId": 1
+}'
+```
+
+### 5. Unsubscribing users from all events.
+* **URL**
+
+  api_host/events/unsubscribeall
+
+* **Method:**
+
+  `PUT`
+  
+*  **URL Params**
+
+   none
+
+* **Data Params**
+
+  **Required:**
+  `UserId=[integer]`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ "SUCCESS" }`
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ "UserId is empty!" }`
+    
+* **Sample:**
+```
+curl --request PUT \
+  --url http://localhost:3001/events/unsubscribeall \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"userId": 2
+}
+'
+```
+
+
