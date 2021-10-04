@@ -277,4 +277,124 @@ curl --request PUT \
 '
 ```
 
+## Public APIs
+### 1. Authorizing
+
+* **URL**
+
+  api_host/auth/login
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   none
+
+* **Data Params**
+
+  **Required:**
+  `email=[string][email]`
+  `password=[string]`
+
+**Security: These inputs will be santinize to prevent SQL injection.**
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ 
+    	"result" : "LOGGED IN",
+	"userId" : id of admin,
+	"name"   : name of admin,
+	"token"  : JWT access token,
+	"refreshToken" : JWT refresh token,
+	"role"   : "Admin"
+    }`
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ "User not found" }`
+    
+   * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ "Wrong password" }`
+    
+* **Sample:**
+```
+curl --request POST \
+  --url http://api.3rebooks.com/auth/login \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"email":"tanvan@example.com",
+	"password":"vanngoctan"
+}'
+```
+
+### 2. Modifying user information
+
+* **URL**
+
+  api_host/user/edit
+
+* **Method:**
+
+  `POST`
+ 
+* **Header:**
+
+  `header 'Authorization: Baerer accessToken`
+  
+*  **URL Params**
+
+   none
+
+* **Data Params**
+
+   **Required:**
+  `userId=[integer]`
+  `firstName=[string]`
+  `lastName=[string]`
+  `email=[string][email]`
+ 
+  **Optional**
+  `workLocation=[string]`
+  `hobbies=[string]`
+
+**Security: These inputs will be santinize to prevent SQL injection.**
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ "SUCCESS" }`
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ "User not found" }`
+    
+  * **Code:** 401 UNAUTHORIED <br />
+    **Content:** `{ errors: "Token is invalid!" }`
+
+  * **Code:** 401 UNAUTHORIED <br />
+    **Content:** `{ errors: "User is not login!" }`
+    
+* **Sample:**
+```
+curl --request POST \
+  --url http://localhost:3001/user/edit \
+  --header 'Authorization: Baerer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRhbnZhbkBleGFtcGxlLmNvbSIsImlhdCI6MTYzMzMzOTg2NiwiZXhwIjoxNjMzMzM5ODk2fQ.AxOwMUHyuCaUphdv2vTCGgholPKC7nyv0i0s6jLlhLA' \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"userId": 3,
+  "firstName": "Tan",
+	"lastName": "Van",
+	"email": "tanvan2@example.com",
+	"workLocation": "HCM",
+	"hobbies": "Read Books"
+}'
+```
+
+
+
 
