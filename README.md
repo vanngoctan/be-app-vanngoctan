@@ -77,7 +77,7 @@ npm start
 - Login by credential: email: **tanvan@example.com**  |  password: **vanngoctan**
 
 # Task Management
-This project use Trello to manage the tasks
+Trello was use to manage This project's task.
 https://trello.com/b/T4No0n3O/events
 
 # APIs
