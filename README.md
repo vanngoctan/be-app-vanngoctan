@@ -64,3 +64,16 @@ npm install
 ```bash
 npm start
 ```
+# Features
+1. Show Events and Description of Event.
+2. Register user information to specific event.
+3. View list users who registered to event.
+4. Unsubcribe user from event or all events.
+5. Edit user information (Admin only)
+6. View user's events registration.
+
+# Deployment.
+- The project was uploaded to host, access via http://events.3rebooks.com
+- Login by credential: email: **tanvan@example.com**  |  password: **vanngoctan**
+
+# APIs
