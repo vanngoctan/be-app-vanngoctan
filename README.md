@@ -76,6 +76,10 @@ npm start
 - The project was uploaded to host, access via http://events.3rebooks.com
 - Login by credential: email: **tanvan@example.com**  |  password: **vanngoctan**
 
+# Task Management
+This project use Trello to manage the tasks
+https://trello.com/b/T4No0n3O/events
+
 # APIs
 ## Public APIs
 ### 1. Saving users’ information to database.
