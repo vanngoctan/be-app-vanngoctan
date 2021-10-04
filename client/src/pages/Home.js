@@ -7,7 +7,7 @@ export default function Home() {
   const [listOfEvents, setListOfEvents] = useState([]);
 
   useEffect(() => {
-    axios.get("http://api.3rebooks.com/events/").then((response) => {
+    axios.get(`${process.env.REACT_APP_API_PATH}/events/`).then((response) => {
       setListOfEvents(response.data);
     });
   }, []);

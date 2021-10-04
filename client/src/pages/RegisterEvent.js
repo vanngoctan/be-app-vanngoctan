@@ -14,7 +14,7 @@ export default function RegisterEvent() {
   let history = useHistory();
 
   useEffect(() => {
-    axios.get(`http://api.3rebooks.com/events/${id}`).then((response) => {
+    axios.get(`${process.env.REACT_APP_API_PATH}/events/${id}`).then((response) => {
       setEvent(response.data);
     });
   }, [id]);
@@ -51,7 +51,7 @@ export default function RegisterEvent() {
 
   const onSubmit = (data) => {
     axios
-      .post(`http://api.3rebooks.com/register/${id}`, data)
+      .post(`${process.env.REACT_APP_API_PATH}/register/${id}`, data)
       .then((response) => {
         history.push("/view/" + id);
       })

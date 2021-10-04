@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     if (sessionStorage.getItem("accessToken")) {
       axios
-        .post(`http://api.3rebooks.com/auth/auth`, null, {
+        .post(`${process.env.REACT_APP_API_PATH}/auth/auth`, null, {
           headers: {
             Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
           },

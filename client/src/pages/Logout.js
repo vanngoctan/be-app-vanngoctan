@@ -12,7 +12,7 @@ export default function Logout() {
 
   useEffect(() => {
     axios
-      .put(`http://api.3rebooks.com/auth/logout`,JSON.stringify({
+      .put(`${process.env.REACT_APP_API_PATH}/auth/logout`,JSON.stringify({
         userId: sessionStorage.getItem("userId"),
       }), {
         headers: {
