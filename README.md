@@ -1,12 +1,12 @@
 # be-app-vanngoctan
-A study project which is using **Nodejs** for back-end and **React** for front-end. Database is MySQL.
+A study project which is using **Nodejs** for back-end and **React** for front-end. Database is **MySQL**.
 
 # Init and Run Project
 ## 1. Donwload Project
 - Access https://github.com/vanngoctan/be-app-vanngoctan to download project.
 - Extract the ZIP file and access folder **be-app-vanngoctan-main**
 ## 2. Server
-- Access to folder **Server**
+- Access to folder **server**
 ```bash
 cd server
 ```
@@ -37,7 +37,7 @@ cd server
   }
 }
 ```
-- Back to folder **Server** and run command to install the dependecies
+- Back to folder **server** and run command to install the dependecies
 ```bash
 npm install
 ```
@@ -48,4 +48,19 @@ npm start
 - Run this command to seed data to database.
 ```bash
 npx sequelize-cli db:seed:all
+```
+
+## 3. Client
+- Access folder **client**
+```bash
+cd client
+```
+- Create an **.env** file and config like file **.env.example**.
+- Back to folder **client** and run command to install the dependecies
+```bash
+npm install
+```
+- Run client by this command
+```bash
+npm start
 ```
