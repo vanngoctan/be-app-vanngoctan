@@ -277,7 +277,7 @@ curl --request PUT \
 '
 ```
 
-## Public APIs
+## Authenticated APIs
 ### 1. Authorizing
 
 * **URL**
@@ -395,6 +395,158 @@ curl --request POST \
 }'
 ```
 
+### 3. Statistic API
 
+* **URL**
+
+  api_host/user/statistic
+
+* **Method:**
+
+  `POST`
+ 
+* **Header:**
+
+  `header 'Authorization: Baerer accessToken`
+  
+*  **URL Params**
+
+   none
+
+* **Data Params**
+
+   **Required:**
+  `email=[string][email]`
+
+**Security: These inputs will be santinize to prevent SQL injection.**
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ 
+    		"user": user information
+		"events": list of events that user registerd
+    		}`
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ "User not found" }`
+    
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ "Email empty" }`
+    
+  * **Code:** 401 UNAUTHORIED <br />
+    **Content:** `{ errors: "Token is invalid!" }`
+
+  * **Code:** 401 UNAUTHORIED <br />
+    **Content:** `{ errors: "User is not login!" }`
+    
+* **Sample:**
+```
+curl --request POST \
+  --url http://localhost:3001/user/statistic \
+  --header 'Authorization: Baerer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRhbnZhbkBleGFtcGxlLmNvbSIsImlhdCI6MTYzMzM0MTY5NCwiZXhwIjoxNjMzMzQxNzI0fQ.Iik-Og3FmWw2C9C6R3098sLtng-_A4HDv3kZ2maYUcc' \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"email": "Phyllis.Swift82@gmail.com"
+}'
+```
+
+## Other APIs
+### 1. Refresh Token
+
+* **URL**
+
+  api_host/auth/refreshToken
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   none
+
+* **Data Params**
+
+  **Required:**
+  `accessToken=[string]`
+  `refreshToken=[string]`
+  `userId=[string]`
+
+**Security: These inputs will be santinize to prevent SQL injection.**
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ 
+	"accessToken"  : JWT access token,
+	"refreshToken" : JWT refresh token,
+    }`
+ 
+* **Error Response:**
+
+  * **Code:** 403 FORBIDENT <br />
+    **Content:** `{ "User not found" }`
+    
+* **Sample:**
+```
+curl --request POST \
+  --url http://localhost:3001/auth/refreshToken \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRhbnZhbkBleGFtcGxlLmNvbSIsImlhdCI6MTYzMzI0NDkyOSwiZXhwIjoxNjMzMjQ0OTU5fQ.qxKcpeBke7mnK7fQXUx6V9NDqFR7d5uFAMfdTx9knTs",
+	"refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRhbnZhbkBleGFtcGxlLmNvbSIsImlhdCI6MTYzMzM0MTY5NH0.MhcA3kvjpK-oDWivXFmw4mFRVA1aBtqT9dVm3CkLLw8",
+	"userId": 1
+}'
+```
+
+### 2. Logout
+
+* **URL**
+
+  api_host/auth/logout
+
+* **Method:**
+
+  `PUT`
+ 
+* **Header:**
+
+  `header 'Authorization: Baerer accessToken`
+  
+*  **URL Params**
+
+   none
+
+* **Data Params**
+
+   **Required:**
+  `userId=[Integer]`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ "LOGGED OUT" }`
+ 
+* **Error Response:**
+    
+  * **Code:** 401 UNAUTHORIED <br />
+    **Content:** `{ errors: "Token is invalid!" }`
+
+  * **Code:** 401 UNAUTHORIED <br />
+    **Content:** `{ errors: "User is not login!" }`
+    
+* **Sample:**
+```
+curl --request PUT \
+  --url http://localhost:3001/auth/logout \
+  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRhbnZhbkBleGFtcGxlLmNvbSIsImlhdCI6MTYzMzM0MjM1MSwiZXhwIjoxNjMzMzQyMzgxfQ.ShddLg4gIdGEqjK0S2R8AmE0KpWp6uRMfihdInd-194' \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"userId": 1
+}'
+```
 
 
